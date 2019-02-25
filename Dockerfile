@@ -17,7 +17,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 RUN set -x \
   && apt-get update \
   && apt-get upgrade -y \
-  && apt-get  install python3 python3-dev tzdata cmake g++ curl tar make -y\
+  && apt-get  install python3 python3-dev tzdata cmake g++ curl tar make fftw3-dev wget  -y\
   && cp /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 # OpenMPI
@@ -28,6 +28,8 @@ RUN cd /tmp \
   && mkdir build \
   && cd build \
   && ../configure --enable-mpi-cxx --disable-mpi-fortran \
-  && make -j \
+  && make -j 4\
   && make install \
   && rm -rf "/tmp/openmpi-${OPENMPI_VER}"
+  
+  
